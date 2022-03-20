@@ -30,7 +30,7 @@ set logged_in 0
 # Issue import command and disconnect SSH connection!
 
 set timeout 20
- exp_send "import certificate ipsec-web-server-other from console\r"
+ exp_send "import certificate general-usage from console\r"
  expect timeout {
  } "paste certificate below, then ^D to complete; or ^C to abort" {
 exp_send "
