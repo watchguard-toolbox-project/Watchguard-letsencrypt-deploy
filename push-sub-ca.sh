@@ -1,15 +1,17 @@
 #!/usr/bin/expect
+# Add arguments for config
 # WatchGuard Proxy Cert+Key import script - Kevin Schley
 # 
 # Credits:
 # https://www.boc.de/watchguard-info-portal/2016/08/letsencrypt-zertifikat-als-proxy-zertifikat-auf-watchguard-firebox/
 # https://www.boc.de/watchguard-info-portal/2016/06/reboot-der-watchguard-per-script/
 
-set firebox    "10.0.10.187";	# WatchGuard IP
-set fbusername "admin";			# Username (need device admin)
-set fbpassword "readwrite"; 	# Password for admin user
-set cert [exec tail -n +2 /root/docker/acme/certs/mail.kunde.de/cert.cer | head -n -1]
-set key [exec tail -n +2 /root/docker/acme/certs/mail.kunde.de/cert.key | head -n -1]
+set firebox [lindex $argv 0] ;	# WatchGuard IP
+set fbusername [lindex $argv 1];			# Username (need device admin)
+set fbpassword [lindex $argv 2]; 	# Password for admin user
+set certdir [lindex $argv 3];     # Certificat directory
+set cert [exec tail -n +2 $certdir/cert.cer | head -n -1]
+set key [exec tail -n +2 $certdir/cert.key | head -n -1]
 
 spawn ssh $fbusername@$firebox -p 4118
 
